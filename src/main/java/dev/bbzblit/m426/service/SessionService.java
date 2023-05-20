@@ -40,4 +40,18 @@ public class SessionService {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong Password or Username");
     }
 
+    public Session getSessionByToken(String token){
+        return this.sessionRepository.findSessionByTokenAndExpirationDateIsAfter(token,
+                LocalDateTime.now()).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Your currently not logged in or your session is expired")
+        );
+    }
+
+
+    public void logout(String token){
+        getSessionByToken(token);
+        this.sessionRepository.deleteById(token);
+    }
+
 }

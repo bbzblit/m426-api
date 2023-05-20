@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +29,16 @@ public class SessionController {
         Session session = this.sessionService.login(loginModel);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Set-Cookie","session="+session.getToken());
+        headers.add("Set-Cookie","session="+session.getToken() + ";Path=/api");
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(session);
+    }
+
+    @PostMapping("/api/v1/logout")
+    public ResponseEntity<Void> logout(@CookieValue("session") String session){
+        this.sessionService.logout(session);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Set-Cookie", "session=; Path=/api; Expires=Thu, 01 Jan 1970 00:00:01 GMT;");
+        return ResponseEntity.ok().headers(headers).body(null);
     }
 
 }
