@@ -1,5 +1,6 @@
 package dev.bbzblit.m426.service;
 
+import dev.bbzblit.m426.entity.Session;
 import dev.bbzblit.m426.entity.User;
 import dev.bbzblit.m426.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
