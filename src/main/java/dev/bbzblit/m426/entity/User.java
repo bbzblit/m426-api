@@ -7,7 +7,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,6 +21,8 @@ import java.security.spec.KeySpec;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @GeneratedValue

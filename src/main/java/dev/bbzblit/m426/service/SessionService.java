@@ -43,7 +43,7 @@ public class SessionService {
     public Session getSessionByToken(String token){
         return this.sessionRepository.findSessionByTokenAndExpirationDateIsAfter(token,
                 LocalDateTime.now()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                () -> new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                         "Your currently not logged in or your session is expired")
         );
     }
