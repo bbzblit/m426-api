@@ -1,5 +1,6 @@
 package dev.bbzblit.m426;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.bbzblit.m426.repository.SessionRepository;
 import dev.bbzblit.m426.repository.UserRepository;
@@ -37,12 +38,16 @@ public class ParentTest {
     @Autowired
     public SessionService sessionService;
 
+    //DON'T USE THE @Autowired ANNOTATION IT WILL BREAK THE TESTS!
+    //THE ObjectMapper SHOULD BE CONFIGURED IN A LOCAL ENVIRONMENT!
+    public ObjectMapper localObjectMapper = new ObjectMapper();
+
     @Autowired
     public ObjectMapper objectMapper;
-
     @BeforeEach
     @AfterEach
     public void init(){
+        this.localObjectMapper.configure(MapperFeature.USE_ANNOTATIONS, false);
         this.sessionRepository.deleteAll();
         this.userRepository.deleteAll();
     }

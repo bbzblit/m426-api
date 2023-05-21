@@ -32,6 +32,11 @@ public class UserService {
                     "You have to provide a User when you want to create a Account");
         }
 
+        if (this.userRepository.findUserByUsername(user.getUsername()).isPresent()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "There is already a User with the username " + user.getUsername());
+        }
+
         user = HashService.hashPassword(user);
 
         return this.userRepository.save(user);
