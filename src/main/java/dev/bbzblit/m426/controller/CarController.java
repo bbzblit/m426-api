@@ -14,7 +14,7 @@ import java.util.List;
 public class CarController {
     public final CarService service;
 
-    public CarController(CarService carService){
+    public CarController( final CarService carService){
         this.service = carService;
     }
 
@@ -31,13 +31,13 @@ public class CarController {
     }
 
     @PostMapping("/api/car")
-    public ResponseEntity<Car> insert(Car car) {
+    public ResponseEntity<Car> insert(@RequestBody Car car) {
         Car newCar = service.insertCar(car);
         return new ResponseEntity<>(newCar, HttpStatus.CREATED);
     }
 
     @PutMapping("/api/car/{id}")
-    public ResponseEntity<Car> update(Car car, @PathVariable Long id) {
+    public ResponseEntity<Car> update(@RequestBody Car car, @PathVariable Long id) {
         Car updatedCar = service.updateCar(car, id);
         return new ResponseEntity<>(updatedCar, HttpStatus.OK);
     }
