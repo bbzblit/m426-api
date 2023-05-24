@@ -17,7 +17,7 @@ public class CarService {
     }
 
     public List<Car> getCars() {
-        return repository.findOrderedByIdAsc();
+        return repository.findCarsByOrderByIdAsc();
     }
 
     public Car getCar(Long id) {
