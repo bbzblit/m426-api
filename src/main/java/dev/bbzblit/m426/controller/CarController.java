@@ -47,4 +47,10 @@ public class CarController {
         service.deleteAddress(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping("/api/car/filter")
+    public ResponseEntity<List<Car>> filterCarsByUserAndDate(@RequestParam("user") String user, @RequestParam("date") String date) {
+        List<Car> filteredCars = service.filterCarsByUserAndDate(user, date);
+        return new ResponseEntity<>(filteredCars, HttpStatus.OK);
+    }
+
 }

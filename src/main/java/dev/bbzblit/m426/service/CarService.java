@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,4 +41,10 @@ public class CarService {
         this.getCar(id); // throws 404 if not found
         repository.deleteById(id);
     }
+    public List<Car> filterCarsByUserAndDate(String user, String date) {
+        LocalDate filterDate = LocalDate.parse(date); // Convert the date string to LocalDate
+
+        return repository.findByUserAndDate(user, filterDate);
+    }
+
 }
