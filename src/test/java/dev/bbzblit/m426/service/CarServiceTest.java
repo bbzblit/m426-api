@@ -1,5 +1,6 @@
 package dev.bbzblit.m426.service;
 
+import dev.bbzblit.m426.ParentTest;
 import dev.bbzblit.m426.entity.Car;
 import dev.bbzblit.m426.repository.CarRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-class CarServiceTest {
+class CarServiceTest extends ParentTest {
     private CarService carService;
 
     @Mock
