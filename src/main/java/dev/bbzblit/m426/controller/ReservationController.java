@@ -3,10 +3,7 @@ package dev.bbzblit.m426.controller;
 import dev.bbzblit.m426.entity.Reservation;
 import dev.bbzblit.m426.service.ReservationService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ReservationController {
@@ -20,8 +17,9 @@ public class ReservationController {
 
 
     @PostMapping("/api/v1/reservation")
-    public Reservation insertReservation(@RequestBody @Valid Reservation reservation){
-        return this.reservationService.saveReservation(reservation);
+    public Reservation insertReservation(@RequestBody @Valid Reservation reservation,
+                                         @CookieValue("session") String token){
+        return this.reservationService.saveReservation(reservation, token);
     }
 
 

@@ -2,6 +2,8 @@ package dev.bbzblit.m426.service;
 
 import dev.bbzblit.m426.entity.Reservation;
 import dev.bbzblit.m426.repository.ReservationRepository;
+import dev.bbzblit.m426.repository.SessionRepository;
+import dev.bbzblit.m426.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,9 +17,12 @@ import java.util.stream.LongStream;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final SessionService sessionService;
 
-    public ReservationService(final ReservationRepository reservationRepository){
+    public ReservationService(final ReservationRepository reservationRepository,
+                              final SessionService sessionService){
         this.reservationRepository = reservationRepository;
+        this.sessionService = sessionService;
     }
 
     private void checkIfCarIsAlreadyReserved(long carId, LocalDateTime period){
@@ -31,9 +36,10 @@ public class ReservationService {
         }
     }
 
-    public Reservation saveReservation(Reservation reservation){
+    public Reservation saveReservation(Reservation reservation, String sessionToken){
         this.checkIfCarIsAlreadyReserved(reservation.getCar().getId(),reservation.getStart());
         this.checkIfCarIsAlreadyReserved(reservation.getCar().getId(),reservation.getEnd());
+        reservation.setUser(sessionService.getSessionByToken(sessionToken).getUser());
         return this.reservationRepository.save(reservation);
     }
 
