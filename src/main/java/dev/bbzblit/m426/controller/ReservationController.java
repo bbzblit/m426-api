@@ -30,5 +30,10 @@ public class ReservationController {
     }
 
 
+    @DeleteMapping("/api/v1/reservation/{id}")
+    public void deleteReservationById(@CookieValue("session") String token, @PathVariable("id") Long id){
+        this.reservationService.revokeReservation(token, id);
+    }
+
 
 }
