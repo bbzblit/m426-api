@@ -43,4 +43,10 @@ public class ReservationService {
         return this.reservationRepository.save(reservation);
     }
 
+
+    public List<Reservation> getNextReservations(String token){
+        return this.reservationRepository.findReservationsByUserIdAndStartAfter(
+                this.sessionService.getSessionByToken(token).getUser().getId(), LocalDateTime.now());
+    }
+
 }

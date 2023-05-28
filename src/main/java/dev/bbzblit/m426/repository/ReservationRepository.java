@@ -13,4 +13,6 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
             Long carId,LocalDateTime start, LocalDateTime end);
 
     public List<Reservation> findReservationsByStartBefore(LocalDateTime localDateTime);
+
+    public List<Reservation> findReservationsByUserIdAndStartAfter(Long id, LocalDateTime start);
 }

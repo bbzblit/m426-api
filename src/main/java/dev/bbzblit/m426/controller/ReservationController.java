@@ -5,6 +5,8 @@ import dev.bbzblit.m426.service.ReservationService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ReservationController {
 
@@ -20,6 +22,11 @@ public class ReservationController {
     public Reservation insertReservation(@RequestBody @Valid Reservation reservation,
                                          @CookieValue("session") String token){
         return this.reservationService.saveReservation(reservation, token);
+    }
+
+    @GetMapping("/api/v1/reservation")
+    public List<Reservation> getReservationsInFuture(@CookieValue("session") String token){
+        return this.reservationService.getNextReservations(token);
     }
 
 
