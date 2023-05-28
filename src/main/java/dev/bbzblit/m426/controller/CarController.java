@@ -18,7 +18,7 @@ public class CarController {
         this.service = carService;
     }
 
-    @GetMapping("/api/car")
+        @GetMapping("/api/car")
     public ResponseEntity<Iterable<Car>> all() {
         List<Car> cars = service.getCars();
         return new ResponseEntity<>(cars, HttpStatus.OK);
