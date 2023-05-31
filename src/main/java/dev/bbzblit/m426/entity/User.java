@@ -7,6 +7,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,10 +35,19 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
+
+    @NotNull
+    @NotEmpty
     private String firstname;
 
+
+    @NotNull
+    @NotEmpty
     private String lastname;
 
+    @NotNull
+    @NotEmpty
+    @Email
     private String email;
 
     @JsonIgnore
