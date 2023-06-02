@@ -1,9 +1,9 @@
 package dev.bbzblit.m426.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +22,7 @@ public class Session {
     @ManyToOne
     private User user;
 
+    @NotNull
     private LocalDateTime expirationDate;
 
 }

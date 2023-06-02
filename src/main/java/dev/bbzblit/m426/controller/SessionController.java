@@ -1,7 +1,6 @@
 package dev.bbzblit.m426.controller;
 
 import dev.bbzblit.m426.entity.Session;
-import dev.bbzblit.m426.entity.User;
 import dev.bbzblit.m426.entity.dto.LoginModel;
 import dev.bbzblit.m426.service.SessionService;
 import org.springframework.http.HttpHeaders;
@@ -24,20 +23,20 @@ public class SessionController {
     }
 
     @PostMapping("/api/v1/login")
-    public ResponseEntity<Session> login(@RequestBody @Validated LoginModel loginModel){
+    public ResponseEntity<Session> login(@RequestBody @Validated LoginModel loginModel) {
 
         Session session = this.sessionService.login(loginModel);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Set-Cookie","session="+session.getToken() + ";Path=/api");
+        headers.add("Set-Cookie", "session=" + session.getToken() + ";Path=/api;SameSite=Strict");
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(session);
     }
 
     @PostMapping("/api/v1/logout")
-    public ResponseEntity<Void> logout(@CookieValue("session") String session){
+    public ResponseEntity<Void> logout(@CookieValue("session") String session) {
         this.sessionService.logout(session);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Set-Cookie", "session=; Path=/api; Expires=Thu, 01 Jan 1970 00:00:01 GMT;");
+        headers.add("Set-Cookie", "session=; Path=/api;SameSite=Strict; Expires=Thu, 01 Jan 1970 00:00:01 GMT;");
         return ResponseEntity.ok().headers(headers).body(null);
     }
 
