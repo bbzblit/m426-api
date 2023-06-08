@@ -29,12 +29,4 @@ public class Car {
     @NotEmpty
     private String color;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 }
