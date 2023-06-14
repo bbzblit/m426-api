@@ -3,18 +3,12 @@ package dev.bbzblit.m426.service;
 import dev.bbzblit.m426.entity.Reservation;
 import dev.bbzblit.m426.entity.User;
 import dev.bbzblit.m426.repository.ReservationRepository;
-import dev.bbzblit.m426.repository.SessionRepository;
-import dev.bbzblit.m426.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.yaml.snakeyaml.events.Event;
 
-import javax.sound.midi.Soundbank;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.LongStream;
 
 @Service
 public class ReservationService {
@@ -69,7 +63,7 @@ public class ReservationService {
         }
     }
 
-public Reservation getReservationWithDate() {
+public Reservation getReservationToday() {
     Reservation reservation = new Reservation();
     LocalDateTime today = LocalDateTime.now();
     if (reservation.getStart() == today) {
