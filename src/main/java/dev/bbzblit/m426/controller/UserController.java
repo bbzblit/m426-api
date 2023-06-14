@@ -18,12 +18,21 @@ public class UserController {
         this.sessionService = sessionService;
     }
 
+    /**
+     * register a new user
+     * @param user
+     * @return user
+     */
     @PostMapping("/api/v1/register")
     public User register(@RequestBody @Valid User user) {
         return this.userService.registerUser(user);
     }
 
-
+    /**
+     * returns a logged in user
+     * @param session
+     * @return
+     */
     @GetMapping("/api/v1/user")
     public User getLoggedInUser(@CookieValue("session") String session) {
         return this.sessionService.getSessionByToken(session).getUser();

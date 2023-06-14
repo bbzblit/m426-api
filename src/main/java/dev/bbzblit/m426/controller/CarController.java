@@ -22,6 +22,10 @@ public class CarController {
         this.service = carService;
     }
 
+    /**
+     * returns a list of all cars
+     * @return list of all cars
+     */
     @GetMapping("/api/v1/car")
     public ResponseEntity<Iterable<Car>> all(@CookieValue("session") String session) {
         sessionService.isAdministrator(session);
@@ -29,6 +33,11 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
+    /**
+     * returns one specific car
+     * @param id
+     * @return one specific car
+     */
     @GetMapping("/api/v1/car/{id}")
     public ResponseEntity<Car> one(@PathVariable Long id, @CookieValue("session") String session) {
         sessionService.isAdministrator(session);
@@ -36,6 +45,11 @@ public class CarController {
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
+    /**
+     * creates a new car
+     * @param car
+     * @return new car
+     */
     @PostMapping("/api/v1/car")
     public ResponseEntity<Car> insert(@RequestBody Car car, @CookieValue("session") String session) {
         sessionService.isAdministrator(session);
@@ -43,6 +57,12 @@ public class CarController {
         return new ResponseEntity<>(newCar, HttpStatus.CREATED);
     }
 
+    /**
+     * edit a specific car
+     * @param car
+     * @param id
+     * @return edited car
+     */
     @PutMapping("/api/v1/car/{id}")
     public ResponseEntity<Car> update(@RequestBody @Valid Car car, @PathVariable Long id, @CookieValue("session") String session) {
         sessionService.isAdministrator(session);
@@ -50,6 +70,11 @@ public class CarController {
         return new ResponseEntity<>(updatedCar, HttpStatus.OK);
     }
 
+    /**
+     * deletes a specific car
+     * @param id
+     * @return no content
+     */
     @DeleteMapping("/api/v1/car/{id}")
     public void delete(@PathVariable Long id, @CookieValue("session") String session) {
         sessionService.isAdministrator(session);
