@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.yaml.snakeyaml.events.Event;
 
+import javax.sound.midi.Soundbank;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -67,5 +68,14 @@ public class ReservationService {
             this.reservationRepository.deleteById(id);
         }
     }
+
+public Reservation getReservationWithDate() {
+    Reservation reservation = new Reservation();
+    LocalDateTime today = LocalDateTime.now();
+    if (reservation.getStart() == today) {
+        return reservation;
+    }
+    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no reservations today");
+}
 
 }

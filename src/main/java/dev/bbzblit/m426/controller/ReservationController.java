@@ -36,4 +36,8 @@ public class ReservationController {
     }
 
 
+    @GetMapping("/api/v1/reservation/today")
+        public Reservation getReservationsToday(){
+        return reservationService.getReservationWithDate();
+        }
 }
