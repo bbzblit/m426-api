@@ -22,6 +22,11 @@ public class SessionController {
         this.sessionService = sessionService;
     }
 
+    /**
+     * for login
+     * @param loginModel
+     * @return Session
+     */
     @PostMapping("/api/v1/login")
     public ResponseEntity<Session> login(@RequestBody @Validated LoginModel loginModel) {
 
@@ -32,6 +37,11 @@ public class SessionController {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(session);
     }
 
+    /**
+     * for logout
+     * @param session
+     * @return header
+     */
     @PostMapping("/api/v1/logout")
     public ResponseEntity<Void> logout(@CookieValue("session") String session) {
         this.sessionService.logout(session);

@@ -17,23 +17,35 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-
+    /**
+     * creates a new reservation
+     * @param reservation
+     * @param token
+     * @return new reservation
+     */
     @PostMapping("/api/v1/reservation")
     public Reservation insertReservation(@RequestBody @Valid Reservation reservation,
                                          @CookieValue("session") String token){
         return this.reservationService.saveReservation(reservation, token);
     }
 
+    /**
+     * returns a list of all reservations
+     * @param token
+     * @return list of all reservations
+     */
     @GetMapping("/api/v1/reservation")
     public List<Reservation> getReservationsInFuture(@CookieValue("session") String token){
         return this.reservationService.getNextReservations(token);
     }
 
-
+    /**
+     * deletes a reservation
+     * @param token
+     * @param id
+     */
     @DeleteMapping("/api/v1/reservation/{id}")
     public void deleteReservationById(@CookieValue("session") String token, @PathVariable("id") Long id){
         this.reservationService.revokeReservation(token, id);
     }
-
-
 }
