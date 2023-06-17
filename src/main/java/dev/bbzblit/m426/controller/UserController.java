@@ -52,4 +52,10 @@ public class UserController {
         this.sessionService.isAdministrator(session);
         return this.userService.updateUser(user, id);
     }
+
+    @DeleteMapping("/api/v1/user/{id}")
+    public void deleteUser(@CookieValue("session") String session, @PathVariable("id") Long id){
+        this.sessionService.isAdministrator(session);
+        this.userService.deleteUser(id);
+    }
 }
