@@ -46,7 +46,7 @@ public class UserController {
         return this.userService.getAllUser();
     }
 
-    @PostMapping("/api/v1/user/{id}")
+    @PutMapping("/api/v1/user/{id}")
     public User updateUser(@CookieValue("session") String session, @PathVariable("id") Long id,
                            @RequestBody @Valid User user){
         this.sessionService.isAdministrator(session);
