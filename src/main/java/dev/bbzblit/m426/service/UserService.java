@@ -13,6 +13,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -48,5 +49,9 @@ public class UserService {
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "User not found by Username " + username)
         );
+    }
+
+    public List<User> getAllUser(){
+        return this.userRepository.findAll();
     }
 }

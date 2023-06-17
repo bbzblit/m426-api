@@ -6,6 +6,8 @@ import dev.bbzblit.m426.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -36,5 +38,11 @@ public class UserController {
     @GetMapping("/api/v1/user")
     public User getLoggedInUser(@CookieValue("session") String session) {
         return this.sessionService.getSessionByToken(session).getUser();
+    }
+
+    @GetMapping("/api/v1/users")
+    public List<User> getUsers(@CookieValue("session") String session) {
+        this.sessionService.isAdministrator(session);
+        return this.userService.getAllUser();
     }
 }
