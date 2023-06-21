@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Long> {
-    List<Car> findCarsByOrderByIdAsc();
+    List<Car> findCarsByOrderByIdAsc();;
 
-    List<Car> findAllNotById(Iterable<Long> ids);
+    List<Car> findCarsByIdNot(Iterable<Long> ids);
 }

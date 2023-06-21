@@ -51,13 +51,11 @@ public class CarService {
 
     public List<Car> getAvailableCars(LocalDateTime startDate, LocalDateTime endDate){
 
-        List<Long> blockedCarIds = new ArrayList<Long>();
-
         List< Reservation> reservations = this.reservationService.getReservationsBetween(startDate, endDate);
 
         Set<Long> reservedCarIds = new HashSet<Long>();
         reservations.forEach(reservation -> reservedCarIds.add(reservation.getId()));
 
-        return this.repository.findAllNotById(reservedCarIds);
+        return this.repository.findCarsByIdNot(reservedCarIds);
     }
 }
