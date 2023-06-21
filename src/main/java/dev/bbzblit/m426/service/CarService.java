@@ -3,13 +3,11 @@ package dev.bbzblit.m426.service;
 import dev.bbzblit.m426.entity.Car;
 import dev.bbzblit.m426.entity.Reservation;
 import dev.bbzblit.m426.repository.CarRepository;
-import dev.bbzblit.m426.repository.ReservationRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -56,6 +54,6 @@ public class CarService {
         Set<Long> reservedCarIds = new HashSet<Long>();
         reservations.forEach(reservation -> reservedCarIds.add(reservation.getId()));
 
-        return this.repository.findCarsByIdNot(reservedCarIds);
+        return this.repository.findCarsByIdsNot(reservedCarIds);
     }
 }
