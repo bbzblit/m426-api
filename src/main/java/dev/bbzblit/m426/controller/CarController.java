@@ -24,6 +24,15 @@ public class CarController {
         this.service = carService;
     }
 
+    
+    @GetMapping("/api/v1/car/available")
+    public List<Car> getAvailableCars(@RequestParam("startDate") LocalDateTime startDate,
+                                      @RequestParam("endDate") LocalDateTime endDate,
+                                      @CookieValue("session") String session){
+        this.sessionService.isLoggedIn(session);
+        return this.service.getAvailableCars(startDate, endDate);
+    }
+
     /**
      * returns a list of all cars
      * @return list of all cars
@@ -81,13 +90,5 @@ public class CarController {
     public void delete(@PathVariable Long id, @CookieValue("session") String session) {
         sessionService.isAdministrator(session);
         service.deleteAddress(id);
-    }
-
-    @GetMapping("/api/v1/car/available")
-    public List<Car> getAvailableCars(@RequestParam("startDate") LocalDateTime startDate,
-                                      @RequestParam("endDate") LocalDateTime endDate,
-                                      @CookieValue("session") String session){
-        this.sessionService.isLoggedIn(session);
-        return this.service.getAvailableCars(startDate, endDate);
     }
 }
