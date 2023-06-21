@@ -4,6 +4,7 @@ import dev.bbzblit.m426.entity.Car;
 import dev.bbzblit.m426.service.CarService;
 import dev.bbzblit.m426.service.SessionService;
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +27,9 @@ public class CarController {
 
     
     @GetMapping("/api/v1/car/available")
-    public List<Car> getAvailableCars(@RequestParam("startDate") LocalDateTime startDate,
+    public List<Car> getAvailableCars(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                          @RequestParam("startDate") LocalDateTime startDate,
+                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                       @RequestParam("endDate") LocalDateTime endDate,
                                       @CookieValue("session") String session){
         this.sessionService.isLoggedIn(session);
