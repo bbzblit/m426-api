@@ -54,6 +54,6 @@ public class CarService {
         Set<Long> reservedCarIds = new HashSet<Long>();
         reservations.forEach(reservation -> reservedCarIds.add(reservation.getId()));
 
-        return this.repository.findCarsByIdsNot(reservedCarIds);
+        return this.repository.findCarsByIdIsNotIn(reservedCarIds);
     }
 }
