@@ -5,14 +5,12 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
 
-    public List<Reservation> findReservationsByCarIdAndStartIsBeforeAndEndIsAfter(
+    public List<Reservation> findReservationsByCarIdAndStartIsLessThanEqualAndEndIsGreaterThanEqual(
             Long carId,LocalDateTime start, LocalDateTime end);
-
-    public List<Reservation> findReservationsByStartBefore(LocalDateTime localDateTime);
-
-    public List<Reservation> findReservationsByUserIdAndStartAfter(Long id, LocalDateTime start);
+    public List<Reservation> findReservationsByStartIsLessThanEqualAndEndIsGreaterThanEqual(LocalDateTime start,
+                                                                                            LocalDateTime end);
+    public List<Reservation> findReservationsByUserIdAndStartGreaterThanEqual(Long id, LocalDateTime start);
 }

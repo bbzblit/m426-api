@@ -28,7 +28,7 @@ jobs:
     name: "Build Docker Image and deploy to Registry"
     runs-on: ubuntu-latest
     needs: [test]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/yanni8/big-refactor'
     steps:
     - uses: actions/checkout@v2
     - name: Set up QEMU

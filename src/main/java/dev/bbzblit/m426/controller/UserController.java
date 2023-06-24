@@ -6,6 +6,8 @@ import dev.bbzblit.m426.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -36,5 +38,24 @@ public class UserController {
     @GetMapping("/api/v1/user")
     public User getLoggedInUser(@CookieValue("session") String session) {
         return this.sessionService.getSessionByToken(session).getUser();
+    }
+
+    @GetMapping("/api/v1/users")
+    public List<User> getUsers(@CookieValue("session") String session) {
+        this.sessionService.isAdministrator(session);
+        return this.userService.getAllUser();
+    }
+
+    @PutMapping("/api/v1/user/{id}")
+    public User updateUser(@CookieValue("session") String session, @PathVariable("id") Long id,
+                           @RequestBody @Valid User user){
+        this.sessionService.isAdministrator(session);
+        return this.userService.updateUser(user, id);
+    }
+
+    @DeleteMapping("/api/v1/user/{id}")
+    public void deleteUser(@CookieValue("session") String session, @PathVariable("id") Long id){
+        this.sessionService.isAdministrator(session);
+        this.userService.deleteUser(id);
     }
 }
