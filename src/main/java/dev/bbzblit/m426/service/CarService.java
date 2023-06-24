@@ -50,10 +50,13 @@ public class CarService {
     public List<Car> getAvailableCars(LocalDateTime startDate, LocalDateTime endDate){
 
         List< Reservation> reservations = this.reservationService.getReservationsBetween(startDate, endDate);
-
         Set<Long> reservedCarIds = new HashSet<Long>();
-        reservations.forEach(reservation -> reservedCarIds.add(reservation.getId()));
+        reservations.forEach(reservation -> reservedCarIds.add(reservation.getCar().getId()));
 
-        return this.repository.findCarsByIdIsNotIn(reservedCarIds);
+        if (reservedCarIds.size() == 0){
+            return this.repository.findAll();
+        }
+
+        return this.repository.findCarsByIdNotIn(reservedCarIds);
     }
 }

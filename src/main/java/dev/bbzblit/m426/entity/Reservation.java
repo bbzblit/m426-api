@@ -35,7 +35,6 @@ public class Reservation {
     private LocalDateTime end;
 
     @ManyToOne
-    @NotNull
     private User user;
 
 }

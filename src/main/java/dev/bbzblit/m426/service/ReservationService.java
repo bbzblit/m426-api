@@ -7,11 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ReservationService {
@@ -28,7 +25,7 @@ public class ReservationService {
     private void checkIfCarIsAlreadyReserved(long carId, LocalDateTime period){
 
         List<Reservation> reservations = this.reservationRepository
-                .findReservationsByCarIdAndStartIsLessThanAndEndIsGreaterThan(carId,period,period);
+                .findReservationsByCarIdAndStartIsLessThanEqualAndEndIsGreaterThanEqual(carId,period,period);
 
         if (reservations.size() > 0){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -38,9 +35,9 @@ public class ReservationService {
 
     public List<Reservation> getReservationsBetween(LocalDateTime start, LocalDateTime end){
         List<Reservation> foundReservation = this.reservationRepository
-                .findReservationsByStartIsLessThanAndEndIsGreaterThan(start, start);
+                .findReservationsByStartIsLessThanEqualAndEndIsGreaterThanEqual(start, start);
         foundReservation.addAll(this.reservationRepository
-                .findReservationsByStartIsLessThanAndEndIsGreaterThan(end, end));
+                .findReservationsByStartIsLessThanEqualAndEndIsGreaterThanEqual(end, end));
 
         return foundReservation;
     }
@@ -54,7 +51,7 @@ public class ReservationService {
 
 
     public List<Reservation> getNextReservations(String token){
-        return this.reservationRepository.findReservationsByUserIdAndStartAfter(
+        return this.reservationRepository.findReservationsByUserIdAndStartGreaterThanEqual(
                 this.sessionService.getSessionByToken(token).getUser().getId(), LocalDateTime.now());
     }
 

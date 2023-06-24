@@ -8,12 +8,9 @@ import java.util.List;
 
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
 
-    public List<Reservation> findReservationsByCarIdAndStartIsLessThanAndEndIsGreaterThan(
+    public List<Reservation> findReservationsByCarIdAndStartIsLessThanEqualAndEndIsGreaterThanEqual(
             Long carId,LocalDateTime start, LocalDateTime end);
-    public List<Reservation> findReservationsByStartIsLessThanAndEndIsGreaterThan(LocalDateTime start,
-                                                                                  LocalDateTime end);
-
-    public List<Reservation> findReservationsByStartBefore(LocalDateTime localDateTime);
-
-    public List<Reservation> findReservationsByUserIdAndStartAfter(Long id, LocalDateTime start);
+    public List<Reservation> findReservationsByStartIsLessThanEqualAndEndIsGreaterThanEqual(LocalDateTime start,
+                                                                                            LocalDateTime end);
+    public List<Reservation> findReservationsByUserIdAndStartGreaterThanEqual(Long id, LocalDateTime start);
 }
