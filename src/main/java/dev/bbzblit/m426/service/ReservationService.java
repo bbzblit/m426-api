@@ -39,10 +39,11 @@ public class ReservationService {
 
     public List<Reservation> getReservationsBetween(LocalDate start, LocalDate end){
         List<Reservation> foundReservation = this.reservationRepository
-                .findReservationsByStartIsLessThanEqualAndEndIsGreaterThanEqual(start, start);
+                .findReservationsByStartBetween(start, start);
         foundReservation.addAll(this.reservationRepository
-                .findReservationsByStartIsLessThanEqualAndEndIsGreaterThanEqual(end, end));
-
+                .findReservationsByStartBetween(end, end));
+        foundReservation.addAll(
+                this.reservationRepository.findReservationsByStartIsGreaterThanEqualAndEndIsLessThanEqual(start, end));
         return foundReservation;
     }
 
