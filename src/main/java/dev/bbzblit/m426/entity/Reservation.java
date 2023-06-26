@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Lookup;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -29,10 +30,10 @@ public class Reservation {
 
 
     @NotNull
-    private LocalDateTime start;
+    private LocalDate start;
 
     @NotNull
-    private LocalDateTime end;
+    private LocalDate end;
 
     @ManyToOne
     private User user;

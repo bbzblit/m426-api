@@ -6,6 +6,9 @@ import dev.bbzblit.m426.service.SessionService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -51,5 +54,11 @@ public class ReservationController {
     public void deleteReservationById(@CookieValue("session") String session, @PathVariable("id") Long id){
         sessionService.isLoggedIn(session);
         this.reservationService.revokeReservation(session, id);
+    }
+
+    @GetMapping("/api/v1/reservation/today")
+    public List<Reservation> getCurrentReservations(@CookieValue("session") String session){
+        sessionService.isAdministrator(session);
+        return this.reservationService.getReservationOfToday();
     }
 }
