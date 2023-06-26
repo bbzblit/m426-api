@@ -54,7 +54,7 @@ public class CarController {
      */
     @GetMapping("/api/v1/car/{id}")
     public ResponseEntity<Car> one(@PathVariable Long id, @CookieValue("session") String session) {
-        sessionService.isAdministrator(session);
+        sessionService.isLoggedIn(session);
         Car car = service.getCar(id);
         return new ResponseEntity<>(car, HttpStatus.OK);
     }

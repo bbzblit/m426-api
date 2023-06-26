@@ -18,7 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest(properties = {
          "spring.datasource.url=jdbc:mariadb://${MARIADB_SERVER:localhost}:${MARIADB_SERVER_PORT:3306}/m426_test" +
-                 "?createDatabaseIfNotExist=true"
+                 "?createDatabaseIfNotExist=true",
+        "spring.jpa.hibernate.ddl-auto=create-drop"
 })
 @AutoConfigureMockMvc
 public class ParentTest {
