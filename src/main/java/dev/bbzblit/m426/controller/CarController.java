@@ -28,9 +28,9 @@ public class CarController {
     
     @GetMapping("/api/v1/car/available")
     public List<Car> getAvailableCars(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-                                          @RequestParam("startDate") LocalDateTime startDate,
+                                          @RequestParam("startDate") LocalDate startDate,
                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-                                      @RequestParam("endDate") LocalDateTime endDate,
+                                      @RequestParam("endDate") LocalDate endDate,
                                       @CookieValue("session") String session){
         this.sessionService.isLoggedIn(session);
         return this.service.getAvailableCars(startDate, endDate);
@@ -54,7 +54,7 @@ public class CarController {
      */
     @GetMapping("/api/v1/car/{id}")
     public ResponseEntity<Car> one(@PathVariable Long id, @CookieValue("session") String session) {
-        sessionService.isAdministrator(session);
+        sessionService.isLoggedIn(session);
         Car car = service.getCar(id);
         return new ResponseEntity<>(car, HttpStatus.OK);
     }

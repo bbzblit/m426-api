@@ -52,4 +52,10 @@ public class ReservationController {
         sessionService.isLoggedIn(session);
         this.reservationService.revokeReservation(session, id);
     }
+
+    @GetMapping("/api/v1/reservation/today")
+    public List<Reservation> getCurrentReservations(@CookieValue("session") String session){
+        sessionService.isAdministrator(session);
+        return this.reservationService.getReservationOfToday();
+    }
 }

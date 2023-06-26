@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -47,7 +48,7 @@ public class CarService {
         repository.deleteById(id);
     }
 
-    public List<Car> getAvailableCars(LocalDateTime startDate, LocalDateTime endDate){
+    public List<Car> getAvailableCars(LocalDate startDate, LocalDate endDate){
 
         List< Reservation> reservations = this.reservationService.getReservationsBetween(startDate, endDate);
         Set<Long> reservedCarIds = new HashSet<Long>();
