@@ -1,7 +1,9 @@
 package dev.bbzblit.m426.service;
 
+import dev.bbzblit.m426.entity.Reservation;
 import dev.bbzblit.m426.entity.Session;
 import dev.bbzblit.m426.entity.User;
+import dev.bbzblit.m426.repository.ReservationRepository;
 import dev.bbzblit.m426.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.PushBuilder;
@@ -21,11 +23,11 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final ReservationService reservationService;
+    private final ReservationRepository reservationRepository;
 
-    public UserService(final UserRepository userRepository, final ReservationService reservationService){
+    public UserService(final UserRepository userRepository, final ReservationRepository reservationRepository){
         this.userRepository = userRepository;
-        this.reservationService = reservationService;
+        this.reservationRepository = reservationRepository;
     }
 
 
@@ -71,7 +73,7 @@ public class UserService {
     }
 
     public void deleteUser(long id){
-        this.reservationService.deleteReservationOfUser(this.getUserById(id));
+        this.reservationRepository.deleteByUserId(this.getUserById(id).getId());
         this.userRepository.deleteById(id);
     }
 }
