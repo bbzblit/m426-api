@@ -1,6 +1,8 @@
 package dev.bbzblit.m426.repository;
 
 import dev.bbzblit.m426.entity.Reservation;
+import jakarta.transaction.Transactional;
+import org.aspectj.apache.bcel.generic.LineNumberGen;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
@@ -25,4 +27,6 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     public List<Reservation> findReservationsByUserIdAndStartGreaterThanEqual(Long id, LocalDate start);
 
     public List<Reservation> findReservationsByStart(LocalDate start);
+
+    public void deleteByUserId(Long userId);
 }

@@ -3,6 +3,7 @@ package dev.bbzblit.m426.controller;
 import dev.bbzblit.m426.entity.User;
 import dev.bbzblit.m426.service.SessionService;
 import dev.bbzblit.m426.service.UserService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,6 +55,7 @@ public class UserController {
     }
 
     @DeleteMapping("/api/v1/user/{id}")
+    @Transactional
     public void deleteUser(@CookieValue("session") String session, @PathVariable("id") Long id){
         this.sessionService.isAdministrator(session);
         this.userService.deleteUser(id);
