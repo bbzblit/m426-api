@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface SessionRepository extends JpaRepository<Session, String> {
     public Optional<Session> findSessionByTokenAndExpirationDateIsAfter(String token, LocalDateTime expirationDate);
+
+    public void deleteByUserId(Long id);
 }

@@ -1,6 +1,7 @@
 package dev.bbzblit.m426.repository;
 
 import dev.bbzblit.m426.entity.Reservation;
+import jakarta.transaction.Transactional;
 import org.aspectj.apache.bcel.generic.LineNumberGen;
 import org.springframework.data.repository.CrudRepository;
 
