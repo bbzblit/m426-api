@@ -42,7 +42,7 @@ public class CarController {
      */
     @GetMapping("/api/v1/car")
     public ResponseEntity<Iterable<Car>> all(@CookieValue("session") String session) {
-        sessionService.isAdministrator(session);
+        sessionService.isLoggedIn(session);
         List<Car> cars = service.getCars();
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
