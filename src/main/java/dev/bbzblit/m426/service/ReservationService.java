@@ -76,4 +76,8 @@ public class ReservationService {
         }
     }
 
+    public void deleteReservationOfUser(User user){
+        this.reservationRepository.deleteByUserId(user.getId());
+    }
+
 }

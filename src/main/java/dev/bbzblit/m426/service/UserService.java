@@ -21,10 +21,11 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final ReservationService reservationService;
 
-
-    public UserService(final UserRepository userRepository){
+    public UserService(final UserRepository userRepository, final ReservationService reservationService){
         this.userRepository = userRepository;
+        this.reservationService = reservationService;
     }
 
 
@@ -70,7 +71,7 @@ public class UserService {
     }
 
     public void deleteUser(long id){
-        this.getUserById(id);
+        this.reservationService.deleteReservationOfUser(this.getUserById(id));
         this.userRepository.deleteById(id);
     }
 }
