@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,30 +23,60 @@ public class CarService {
         this.reservationService = reservationService;
     }
 
+    /**
+     * Method to get all the cars in the Database
+     * @return all cars
+     */
     public List<Car> getCars() {
         return repository.findCarsByOrderByIdAsc();
     }
 
-    public Car getCar(Long id) {
+    /**
+     * Method to get a specific car by its id
+     * @param id the provdidet id
+     * @return the car if it exists
+     */
+    public Car getCarById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car not found with id " + id));
     }
 
-    public Car insertCar(Car car) {
+    /**
+     * Method to create a new car
+     * @param car new car
+     * @return created car
+     */
+    public Car saveCar(Car car) {
         return repository.save(car);
     }
 
+    /**
+     * Method to update a car
+     * @param car the new car
+     * @param id the carId of the old car
+     * @return updated car
+     */
     public Car updateCar(Car car, Long id) {
-        this.getCar(id); // throws 404 if not found
+        this.getCarById(id); // throws 404 if not found
         car.setId(id);
         return repository.save(car);
     }
 
-    public void deleteAddress(Long id) {
-        this.getCar(id); // throws 404 if not found
+    /**
+     * Method to delete a car
+     * @param id the id of the car
+     */
+    public void deleteCar(Long id) {
+        this.getCarById(id); // throws 404 if not found
         repository.deleteById(id);
     }
 
+    /**
+     * Method to get all the cars that are available to reserver during the specified period
+     * @param startDate start date of the period
+     * @param endDate end date of the period
+     * @return found cars
+     */
     public List<Car> getAvailableCars(LocalDate startDate, LocalDate endDate){
 
         List< Reservation> reservations = this.reservationService.getReservationsBetween(startDate, endDate);

@@ -22,6 +22,12 @@ public class ReservationService {
         this.sessionService = sessionService;
     }
 
+    /**
+     * Methd to check if a sepecific car got already reserved
+     * @param carId the id of the car
+     * @param start the start date of the new reservation
+     * @param end the end date of the new reservation
+     */
     private void checkIfCarIsAlreadyReserved(long carId, LocalDate start, LocalDate end) {
 
         List<Reservation> reservations = this.reservationRepository
@@ -35,10 +41,21 @@ public class ReservationService {
         }
     }
 
+    /**
+     * Method to get all reservations that start from today
+     * @return iterable of reservations that start today
+     */
     public List<Reservation> getReservationOfToday() {
         return this.reservationRepository.findReservationsByStart(LocalDate.now());
     }
 
+    /**
+     * Method to get all the reservations that have a "conflict" with the providet datarange.
+     * It also returns Reservations that just parcialy match the providet range
+     * @param start start date of range
+     * @param end  end date of range
+     * @return reservations in that range
+     */
     public List<Reservation> getReservationsBetween(LocalDate start, LocalDate end) {
         List<Reservation> foundReservation = this.reservationRepository
                 .findReservationsByStartBetweenOrEndBetween(start, end ,start, end);
@@ -47,6 +64,12 @@ public class ReservationService {
         return foundReservation;
     }
 
+    /**
+     * Method to create a new reservations
+     * @param reservation the resservation
+     * @param sessionToken the currently logged in user
+     * @return created reservation
+     */
     public Reservation saveReservation(Reservation reservation, String sessionToken) {
         this.checkIfCarIsAlreadyReserved(reservation.getCar().getId(), reservation.getStart(), reservation.getEnd());
         reservation.setUser(sessionService.getSessionByToken(sessionToken).getUser());
@@ -54,12 +77,22 @@ public class ReservationService {
     }
 
 
+    /**
+     * Method to get all the reservations of the current user that are in the future
+     * @param token the session id
+     * @return list of all reservations
+     */
     public List<Reservation> getNextReservations(String token) {
         return this.reservationRepository.findReservationsByUserIdAndStartGreaterThanEqual(
                 this.sessionService.getSessionByToken(token).getUser().getId(), LocalDate.now());
     }
 
-    public Reservation findReservationById(long id) {
+    /**
+     * Method to find a specific reservation by its id
+     * @param id the id
+     * @return the found reservation
+     */
+    public Reservation getReservationById(long id) {
         return this.reservationRepository.findById(id)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No Reservation found by id " + id)
@@ -67,8 +100,13 @@ public class ReservationService {
     }
 
 
-    public void revokeReservation(String token, long id) {
-        Reservation reservation = this.findReservationById(id);
+    /**
+     * Method to delete a Reservation
+     * @param token the session id of the currently logged in user
+     * @param id id of the reservation
+     */
+    public void deleteReservation(String token, long id) {
+        Reservation reservation = this.getReservationById(id);
         User user = this.sessionService.getSessionByToken(token).getUser();
 
         if (reservation.getUser().equals(user)) {

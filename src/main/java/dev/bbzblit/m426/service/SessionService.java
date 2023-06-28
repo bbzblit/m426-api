@@ -23,6 +23,11 @@ public class SessionService {
     }
 
 
+    /**
+     * Method to log into the application
+     * @param loginModel The Username and Password
+     * @return a new Session
+     */
     public Session login(LoginModel loginModel) {
         try {
             User user = userService.findUserByUsername(loginModel.getUsername());
@@ -39,6 +44,11 @@ public class SessionService {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong Password or Username");
     }
 
+    /**
+     * Method to get a session by its session key
+     * @param token the providet session key
+     * @return session if it exists
+     */
     public Session getSessionByToken(String token) {
         return this.sessionRepository.findSessionByTokenAndExpirationDateIsAfter(token,
                 LocalDateTime.now()).orElseThrow(
@@ -48,11 +58,19 @@ public class SessionService {
     }
 
 
+    /**
+     * Method to log out of a session
+     * @param token the session cookie
+     */
     public void logout(String token) {
         getSessionByToken(token);
         this.sessionRepository.deleteById(token);
     }
 
+    /**
+     * Method to evaluate if the requesting user has a valid session
+     * @param token the session token
+     */
     public void isLoggedIn(final String token) {
         if (getSessionByToken(token).getUser() == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
@@ -60,6 +78,10 @@ public class SessionService {
         }
     }
 
+    /**
+     * Method to evaluate if the current user has admin priviliges
+     * @param token the session id of the current user
+     */
     public void isAdministrator(final String token) {
         User user = getSessionByToken(token).getUser();
         if (user == null) {

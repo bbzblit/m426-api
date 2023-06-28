@@ -50,7 +50,7 @@ public class ReservationController {
     @DeleteMapping("/api/v1/reservation/{id}")
     public void deleteReservationById(@CookieValue("session") String session, @PathVariable("id") Long id){
         sessionService.isLoggedIn(session);
-        this.reservationService.revokeReservation(session, id);
+        this.reservationService.deleteReservation(session, id);
     }
 
     @GetMapping("/api/v1/reservation/today")

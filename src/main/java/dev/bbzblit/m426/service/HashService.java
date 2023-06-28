@@ -12,6 +12,11 @@ import java.security.spec.KeySpec;
 
 public class HashService {
 
+    /**
+     * Method to convert a byte array to a hex string
+     * @param bytes the byte array
+     * @return the resulting hex string
+     */
     public static String toHexString(byte[] bytes)
     {
         StringBuilder result = new StringBuilder();
@@ -29,6 +34,13 @@ public class HashService {
         return result.toString();
     }
 
+    /**
+     * Method to verify if the hased password matches the plain text password
+     * @param password plain text password
+     * @param salt the salt value to hash
+     * @param expectedPassword the password that is expected to be returned
+     * @return true if it matches otherwise false
+     */
     public static boolean verifyPassword(String password, byte[] salt, String expectedPassword){
 
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
@@ -48,6 +60,11 @@ public class HashService {
         return false;
     }
 
+    /**
+     * Method to hash the password of a user and create a s secure random salt
+     * @param user the providet user
+     * @return user with hashed password.
+     */
     public static User hashPassword(User user){
 
         //Generate Salt
