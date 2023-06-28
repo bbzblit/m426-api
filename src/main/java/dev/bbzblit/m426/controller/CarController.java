@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -55,7 +54,7 @@ public class CarController {
     @GetMapping("/api/v1/car/{id}")
     public ResponseEntity<Car> one(@PathVariable Long id, @CookieValue("session") String session) {
         sessionService.isLoggedIn(session);
-        Car car = service.getCar(id);
+        Car car = service.getCarById(id);
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
@@ -67,7 +66,7 @@ public class CarController {
     @PostMapping("/api/v1/car")
     public ResponseEntity<Car> insert(@RequestBody Car car, @CookieValue("session") String session) {
         sessionService.isAdministrator(session);
-        Car newCar = service.insertCar(car);
+        Car newCar = service.saveCar(car);
         return new ResponseEntity<>(newCar, HttpStatus.CREATED);
     }
 
@@ -92,6 +91,6 @@ public class CarController {
     @DeleteMapping("/api/v1/car/{id}")
     public void delete(@PathVariable Long id, @CookieValue("session") String session) {
         sessionService.isAdministrator(session);
-        service.deleteAddress(id);
+        service.deleteCar(id);
     }
 }
