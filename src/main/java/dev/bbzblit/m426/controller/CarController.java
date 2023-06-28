@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Controller to handle the {@link Car} model
+ *
+ * Base Path: /api/v1/car
+ */
 @RestController
 @Validated
 public class CarController {

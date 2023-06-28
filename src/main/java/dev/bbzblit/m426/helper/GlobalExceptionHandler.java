@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * Global ExeptionHandler handler.
+ * Class to catch all unresolved errors before the get resolved by spring boot
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 

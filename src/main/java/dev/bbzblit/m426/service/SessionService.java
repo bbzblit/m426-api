@@ -11,6 +11,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 
+/**
+ * Service to manage the @{@link Session} object.
+ */
 @Service
 public class SessionService {
 

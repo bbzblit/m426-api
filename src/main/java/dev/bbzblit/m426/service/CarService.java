@@ -12,6 +12,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Services that is used to manage the Car Model
+ */
 @Service
 public class CarService {
     private final CarRepository repository;

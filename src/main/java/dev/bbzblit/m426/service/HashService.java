@@ -2,6 +2,7 @@ package dev.bbzblit.m426.service;
 
 import dev.bbzblit.m426.entity.User;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.crypto.SecretKeyFactory;
@@ -10,6 +11,12 @@ import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 
 
+/**
+ * Services to create and verify Hashes used to authentificate the User
+ * The Services uses the {@link dev.bbzblit.m426.helper.RandomString} to generate secure
+ * salt values.
+ */
+@Service
 public class HashService {
 
     /**

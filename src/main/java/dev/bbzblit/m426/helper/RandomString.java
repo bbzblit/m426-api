@@ -6,6 +6,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Class to automatic generate a new secure Random String
+ */
 public class RandomString {
 
 
