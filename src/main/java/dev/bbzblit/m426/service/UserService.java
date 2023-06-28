@@ -10,6 +10,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+/**
+ * Service to mangage the {@link User} model.
+ */
 @Service
 public class UserService {
 

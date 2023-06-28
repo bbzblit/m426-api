@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for the {@link User}
+ *
+ * Default endpoint /api/v1/user
+ */
 @RestController
 public class UserController {
 

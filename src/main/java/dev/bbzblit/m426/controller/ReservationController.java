@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller to handle the {@link Reservation} model
+ *
+ * Base Path: /api/v1/reservation
+ */
 @RestController
 public class ReservationController {
     public  final SessionService sessionService;

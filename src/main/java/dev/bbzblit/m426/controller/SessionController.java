@@ -1,6 +1,7 @@
 package dev.bbzblit.m426.controller;
 
 import dev.bbzblit.m426.entity.Session;
+import dev.bbzblit.m426.entity.User;
 import dev.bbzblit.m426.entity.dto.LoginModel;
 import dev.bbzblit.m426.service.SessionService;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller handle the session of the user
+ * which mean login/logout
+ */
 @RestController
 public class SessionController {
 

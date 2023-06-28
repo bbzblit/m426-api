@@ -10,6 +10,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Service to manage the {@link Reservation} object.
+ */
 @Service
 public class ReservationService {
 
